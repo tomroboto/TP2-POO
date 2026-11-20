@@ -3,7 +3,6 @@ package ar.com.concesionaria.tests;
 import ar.com.concesionaria.gestion.Concesionaria;
 import ar.com.concesionaria.vehiculos.Auto;
 import ar.com.concesionaria.vehiculos.Moto;
-import ar.com.concesionaria.vehiculos.Vehiculo;
 
 public class TestConcesionaria {
     public static void main(String[] args) {
@@ -22,25 +21,40 @@ public class TestConcesionaria {
   
         //Imprimo en pantalla los vehículos que tiene la concesionaria con el formato que pide la consigna.
         concesionaria.imprimirVehiculos();
+
         System.out.println("\n=============================\n");
 
         //Utilizando la API Stream selecciono al vehículo más caro, al más barato y alguno que contenga la letra Y del ArrayList vehículos.
-        concesionaria.vehiculoMasCaro();
-        concesionaria.vehiculoMasBarato();
-        Vehiculo vehiculoY= concesionaria.buscadorVehiculos("y").get(0);
+        concesionaria.vehiculoMasCaro().forEach(v->{
+            System.out.println("Vehículo más caro: "+v.verMarcaModelo());
+            }
+        );
+        concesionaria.vehiculoMasBarato().forEach(v->{
+            System.out.println("Vehículo más barato: "+v.verMarcaModelo());
+            }
+        );
+        concesionaria.buscadorVehiculos("y").forEach(v->{
         System.out.println("Vehículo que contiene en el modelo la letra 'Y': "+
-                            vehiculoY.getMarca()+" "+
-                            vehiculoY.getModelo()+" "+
-                            vehiculoY.precioString());
+                            v.verMarcaModelo()+" "+
+                            v.precioString());
+            }
+        );
+
         System.out.println("\n=============================\n");
 
         //Utilizando el método sorted() ordeno el stream comparándolo por el precio
-        concesionaria.ordenarVehiculosPrecio();
+        System.out.println("Vehículos ordenados por precio de mayor a menor:");
+        concesionaria.ordenarVehiculosPrecio().forEach(v->{
+            System.out.println(v.verMarcaModelo());
+            }
+        );
+
         System.out.println("\n=============================\n");
 
         //Utilizando el método sorted() ordeno el stream comparando por String
-        concesionaria.ordenarVehiculosNombre();
-        System.out.println("\n");
+        System.out.println("Vehículos ordenados por orden natural (marca, modelo, precio):");
+        concesionaria.ordenarVehiculosNombre().forEach(System.out::println);
 
+        System.out.println("\n");
     }
 }

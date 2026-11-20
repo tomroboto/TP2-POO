@@ -43,35 +43,51 @@ public class Concesionaria implements IEntrega{
      */
     @Override
     public void imprimirVehiculos() {
-        vehiculos.forEach(System.out::println);        
+        vehiculos.forEach(System.out::println);
     }
     
     /**
      * Función que imprime por consola el vehículo con el precio más alto.
      */
     @Override
-    public void vehiculoMasCaro() {
+    public ArrayList<Vehiculo> vehiculoMasCaro() {
+        ArrayList<Vehiculo> resultado= new ArrayList<>();
         Vehiculo vehiculoCaro=  vehiculos
                                 .stream()
                                 .max(Comparator.comparing(Vehiculo::getPrecio))
                                 .get();
-        System.out.println("Vehículo más caro: "+
-                            vehiculoCaro.getMarca()+" "+
-                            vehiculoCaro.getModelo());
+        vehiculos
+                .stream()
+                .sorted(Comparator.comparing(Vehiculo::getPrecio)
+                .reversed())
+                .forEach(v->{
+                    if (v.getPrecio()==vehiculoCaro.getPrecio()) {
+                        resultado.add(v);
+                    }
+                });
+        return resultado;
     }
 
     /**
      * Función que imprime por consola el vehículo con el precio más bajo.
      */
     @Override
-    public void vehiculoMasBarato() {
+    public ArrayList<Vehiculo> vehiculoMasBarato() {
+        ArrayList<Vehiculo> resultado= new ArrayList<>();
         Vehiculo vehiculoBarato=vehiculos
                                         .stream()
                                         .min(Comparator.comparing(Vehiculo::getPrecio))
                                         .get();
-        System.out.println("Vehículo más barato: "+
-                            vehiculoBarato.getMarca()+" "+
-                            vehiculoBarato.getModelo());
+        vehiculos
+                .stream()
+                .sorted(Comparator.comparing(Vehiculo::getPrecio)
+                .reversed())
+                .forEach(v->{
+                    if (v.getPrecio()==vehiculoBarato.getPrecio()) {
+                        resultado.add(v);
+                    }
+                });
+        return resultado;
     }
 
     /**
@@ -84,7 +100,7 @@ public class Concesionaria implements IEntrega{
         ArrayList<Vehiculo> resultado= new ArrayList<>();
         vehiculos
                 .stream()
-                .filter(v->v.toString().toLowerCase().contains(busqueda))
+                .filter(v->v.verMarcaModelo().toLowerCase().contains(busqueda.toLowerCase()))
                 .forEach(resultado::add);
         return resultado;
     }
@@ -94,24 +110,26 @@ public class Concesionaria implements IEntrega{
      * comenzando por el más alto.
      */
     @Override
-    public void ordenarVehiculosPrecio() {
-        System.out.println("Vehículos ordenados por precio de mayor a menor:");
+    public ArrayList<Vehiculo> ordenarVehiculosPrecio() {
+        ArrayList<Vehiculo> resultado= new ArrayList<>();
         vehiculos
                 .stream()
                 .sorted(Comparator.comparing(Vehiculo::getPrecio)
                 .reversed())
-                .forEach(v-> System.out.println(v.getMarca()+" "+v.getModelo()));
+                .forEach(resultado::add);
+        return resultado;
     }
 
     /**
      * Función que ordena los vehiculos alfabéticamente y los imprime por consola
      */
     @Override
-    public void ordenarVehiculosNombre() {
-        System.out.println("Vehículos ordenados por orden natural (marca, modelo, precio):");
+    public ArrayList<Vehiculo> ordenarVehiculosNombre() {
+        ArrayList<Vehiculo> resultado= new ArrayList<>();
         vehiculos
                 .stream()
                 .sorted(Comparator.comparing(Vehiculo::toString))
-                .forEach(System.out::println);
+                .forEach(resultado::add);
+        return resultado;
     }
 }

@@ -16,7 +16,7 @@ public class Auto extends Vehiculo {
     @Override
     public String toString() {
         return  "Marca: "+this.getMarca()+" // "+           //Especifico el método toString()
-                "Modelo: "+this.getModelo()+" // "+         //para que se vea exactamente 
+                "Modelo: "+this.getModelo()+" // "+         //para que se vea exactamente
                 "Puertas: "+this.getPuertas()+" // "+       //como pide la consigna
                 "Precio: "+this.precioString();
     }

@@ -38,4 +38,8 @@ public abstract class Vehiculo implements Comparable<Vehiculo>{
         DecimalFormat df= new DecimalFormat("###,###.00"); //Función que devuelve un String con el precio
         return "$"+df.format(this.precio);                         //escrito exactamente de la forma requerida
     }
+
+    public String verMarcaModelo() {
+        return this.marca+" "+this.modelo;
+    }
 }

@@ -20,5 +20,4 @@ public class Moto extends Vehiculo{
                 "Cilindrada: "+this.getCilindrada()+"c // "+    //como pide la consigna
                 "Precio: "+this.precioString();
     }
-
 }
